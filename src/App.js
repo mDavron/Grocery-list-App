@@ -13,13 +13,13 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!name){
+    if (!name) {
 
-    }else if(name && isEditing){
+    } else if (name && isEditing) {
 
-    }else {
-      const newItem = {id:new Date().getTime().toString(),title:name};
-      setList([...list,newItem]);
+    } else {
+      const newItem = { id: new Date().getTime().toString(), title: name };
+      setList([...list, newItem]);
       setName("");
     }
   }
@@ -44,7 +44,7 @@ function App() {
         </div>
       </form>
       <div className="grocery-container">
-        <List />
+        <List  items = {list}/>
         <button className='btn btn-outline-secondary clear-btn'>Clear All</button>
       </div>
     </div>
