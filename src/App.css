@@ -1,7 +1,7 @@
 .wrapper{
   width: 600px;
-  height: 500px;
-  padding: 10px 40px;
+  min-height: 300px;
+  padding: 30px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 form h3{
@@ -17,4 +17,24 @@ form h3{
 .clear-btn{
   display: block;
   width: 100%;
+}
+@media(max-width:560px){
+  body{
+    padding: 10px;
+    align-items: flex-start;
+  }
+  .wrapper{
+    width: 100%;
+    min-height: 300px;
+    padding: 10px;
+  }
+}
+@media(max-width:375.998px){
+  body{
+    padding: 5px;
+    align-items: flex-start;
+  }
+  .wrapper{
+    padding: 5px;
+  }
 }

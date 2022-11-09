@@ -9,33 +9,43 @@ function App() {
   const [list, setList] = useState([]);
   const [isEditing, setIsEding] = useState(false)
   const [editId, setEditId] = useState(null)
-  const [alert, setAlert] = useState({ show: false, msg: "", type: "" })
+  const [alert, setAlert] = useState({ show: false, type: "", msg: "" })
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name) {
+    if (!name.trim()) {
+      // alert display
+      showAlert(true, "danger", "Please enter value!")
+      // setAlert({show:true,msg:"please enter",type:"danger"})
 
     } else if (name && isEditing) {
+      // edit
 
     } else {
       const newItem = { id: new Date().getTime().toString(), title: name };
       setList([...list, newItem]);
       setName("");
+      showAlert(true, "success", "Added New Item!")
+
     }
+  }
+  const showAlert = (show = false, type = "", msg = "") => {
+    setAlert({ show, type, msg })
+    // console.log("alert");
   }
   return (
     <div className='wrapper'>
       <form className='grocery-form' onClick={handleSubmit}>
-        {alert.show && <Alert />}
+        {alert.show && <Alert {...alert} removeAlert = {showAlert} />}
         <h3>List Notes</h3>
         <div className="form-controll">
-          <div class="input-group mb-3">
+          <div className="input-group mb-3">
             <input type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Add new item"
               value={name}
               onChange={(e) => setName(e.target.value)} />
-            <button class="btn btn-outline-primary"
+            <button className="btn btn-outline-primary"
               type="submit"
               id="button-addon2">
               {isEditing ? "Edit item" : "Add item"}
@@ -43,10 +53,12 @@ function App() {
           </div>
         </div>
       </form>
-      <div className="grocery-container">
-        <List  items = {list}/>
-        <button className='btn btn-outline-secondary clear-btn'>Clear All</button>
-      </div>
+      {list.length > 0 && (
+        <div className="grocery-container">
+          <List items={list} />
+          <button className='btn btn-outline-secondary clear-btn'>Clear All</button>
+        </div>
+      )}
     </div>
   )
 }

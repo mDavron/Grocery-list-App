@@ -1,0 +1,38 @@
+.grocery-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ECF8F8;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.grocery-item .title {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.grocery-item .btn-container button {
+    margin-left: 20px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+i.fa-trash {
+    color: #FF4359;
+}
+
+i.fa-pen-to-square {
+    color: #00ECC2;
+}
+
+@media(max-width:560px){
+    .grocery-item{
+        padding: 5px;
+    }
+    .grocery-item .btn-container button {
+        margin-left: 5px;
+    }
+}
