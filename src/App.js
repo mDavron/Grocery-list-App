@@ -15,7 +15,7 @@ function App() {
     e.preventDefault();
     if (!name.trim()) {
       // alert display
-      showAlert(true, "danger", "Please enter value!")
+      showAlert(true, "warning", "Please enter value!")
       // setAlert({show:true,msg:"please enter",type:"danger"})
 
     } else if (name && isEditing) {
@@ -26,17 +26,20 @@ function App() {
       setList([...list, newItem]);
       setName("");
       showAlert(true, "success", "Added New Item!")
-
     }
   }
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg })
     // console.log("alert");
   }
+  const clearList = () => {
+    showAlert(true, "danger", "Cleared All Items!");
+    setList([]);
+  }
   return (
     <div className='wrapper'>
       <form className='grocery-form' onClick={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert = {showAlert} />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
         <h3>List Notes</h3>
         <div className="form-controll">
           <div className="input-group mb-3">
@@ -56,7 +59,10 @@ function App() {
       {list.length > 0 && (
         <div className="grocery-container">
           <List items={list} />
-          <button className='btn btn-outline-secondary clear-btn'>Clear All</button>
+          <button
+            onClick={clearList}
+            className='btn btn-outline-secondary clear-btn'
+          >Clear All</button>
         </div>
       )}
     </div>
