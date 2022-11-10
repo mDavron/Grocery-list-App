@@ -28,10 +28,11 @@ i.fa-pen-to-square {
     color: #00ECC2;
 }
 
-@media(max-width:560px){
-    .grocery-item{
+@media(max-width:560px) {
+    .grocery-item {
         padding: 5px;
     }
+
     .grocery-item .btn-container button {
         margin-left: 5px;
     }

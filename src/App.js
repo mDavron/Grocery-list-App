@@ -3,10 +3,17 @@ import React, { useState, useEffect } from 'react'
 import List from './components/List';
 import Alert from './components/Alert';
 import './App.css'
-
+const getLocalStorage = () => {
+  let list = localStorage.getItem("list");
+  if (list) {
+    return JSON.parse(localStorage.getItem("list"))
+  } else {
+    return [];
+  }
+}
 function App() {
   const [name, setName] = useState("");
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(getLocalStorage);
   const [isEditing, setIsEding] = useState(false)
   const [editId, setEditId] = useState(null)
   const [alert, setAlert] = useState({ show: false, type: "", msg: "" })
@@ -21,18 +28,16 @@ function App() {
 
     } else if (name && isEditing) {
       // edit
-    setList(list.map((item) => {
-      if(item.id === editId){
-        return {...item,title:name}
-      }
-      return item
-    }));
-    setName("");
-    setEditId(null);
-    setIsEding(false)
-    showAlert(true,"success"," Item successfully edited!")
-
-
+      setList(list.map((item) => {
+        if (item.id === editId) {
+          return { ...item, title: name }
+        }
+        return item
+      }));
+      setName("");
+      setEditId(null);
+      setIsEding(false)
+      showAlert(true, "success", " Item successfully edited!")
     } else {
       showAlert(true, "success", "Added New Item!")
       const newItem = { id: new Date().getTime().toString(), title: name };
@@ -47,8 +52,12 @@ function App() {
   }
   //clear All item
   const clearList = () => {
-    showAlert(true, "danger", "Cleared All Items!");
-    setList([]);
+    let info = window.confirm("do you really want delete all items?");
+    if (info) {
+      showAlert(true, "danger", "Cleared All Items!");
+      setList([]);
+    }
+    return;
   }
   //delete item
   const removeItem = (id) => {
@@ -63,11 +72,14 @@ function App() {
     setEditId(id);
     setIsEding(true);
   }
+  useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(list))
+  }, [list])
   return (
     <>
       <div className='wrapper'>
         <form className='grocery-form' onSubmit={handleSubmit}>
-          {alert.show ? <Alert {...alert} removeAlert={showAlert} list = {list} /> : <h4 className='alert' >List Length: {list.length}</h4>}
+          {alert.show ? <Alert {...alert} removeAlert={showAlert} list={list} /> : <h4 className='alert' >List Length: {list.length}</h4>}
           <div className="form-controll">
             <div className="input-group mb-3">
               <input type="text"
@@ -87,7 +99,7 @@ function App() {
           <div className="grocery-container">
             <List items={list}
               removeItem={removeItem}
-              editItem = {editItem} />
+              editItem={editItem} />
             <button
               onClick={clearList}
               className='btn btn-outline-secondary clear-btn'

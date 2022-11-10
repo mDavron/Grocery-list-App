@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './Alert.css'
 
-const Alert = ({ type, msg, removeAlert,list }) => {
+const Alert = ({ type, msg, removeAlert, list }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       removeAlert();
