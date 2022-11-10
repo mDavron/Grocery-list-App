@@ -1,7 +1,7 @@
 import React from 'react'
 import './List.css'
 
-const List = ({items,removeItem}) => {
+const List = ({items,removeItem,editItem}) => {
   return (
     <div className='grocery-list'>
       {items.map((item,i) => {
@@ -10,7 +10,7 @@ const List = ({items,removeItem}) => {
           <article className='grocery-item' key={id}>
             <p className='title'> <span><b>{i+1}.</b></span> &nbsp;{title}</p>
             <div className="btn-container">
-              <button><i className="fa-sharp fa-solid fa-pen-to-square"></i></button>
+              <button onClick={() => editItem(id)}><i className="fa-sharp fa-solid fa-pen-to-square"></i></button>
               <button onClick={()=> removeItem(id)}><i className="fa-sharp fa-solid fa-trash"></i></button>
             </div>
           </article>
